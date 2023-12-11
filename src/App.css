@@ -1,0 +1,33 @@
+#root{
+  color: wheat;
+}
+body{
+  background:linear-gradient(to top left, rgb(2, 2, 122), rgb(87, 83, 83),orange);
+}
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
+button{
+  background-color: transparent;
+  color: rgba(255,255,255,0.8);
+  border: 0;
+  display: inline-block;
+  width: 100px;
+}
+button.with-text{
+  width: auto;
+  background-color: rgba(255,255,255,0.8);
+  border-radius: 10px;
+  padding: 10px;
+}
+.controls{
+  margin-top: 20px;
+}
+.footer{
+  background-color: navy;
+}

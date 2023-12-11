@@ -1,0 +1,55 @@
+.C55, .K25 {
+  background-color: red;
+  border-radius: 10px;
+  border: solid 1px;
+}
+
+.C45, .K20{
+  background-color: blue;
+  border-radius: 10px;
+  border: solid 1px;
+}
+
+.C35, .K15 {
+  color: black;
+  background-color: yellow;
+  border-radius: 10px;
+  border: solid 1px;
+}
+
+.C25, .K10 {
+  background-color: green;
+  border-radius: 10px;
+  border: solid 1px;
+}
+
+.C15, .K7_5 {
+  background-color: black;
+  color: yellow;
+  border-radius: 10px;
+  border: solid 1px;
+}
+
+.C10, .K5 {
+  background-color: black;
+  color:aliceblue;
+  border-radius: 10px;
+  border: solid 1px;
+}
+.C5, .K2 {
+  background-color: white;
+  color: black;
+  border-radius: 10px; 
+  border: solid 1px;
+ }
+ .C2, .K1{
+  background-color: red;
+  border-radius: 10px; 
+  border: solid 1px;
+ }
+ .C1{
+  background-color: yellow;
+  color: black;
+  border-radius: 10px; 
+  border: solid 1px;
+ }
