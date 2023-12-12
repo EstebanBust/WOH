@@ -1,6 +1,6 @@
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import TimerWithProgress from './timers/timer';
+import TimerWithProgress from './timers/BasicTimer';
 import TimerWithInterval from './timers/TimerInterval';
 import TimerEmom from './timers/TimerEmom';
 import Navigation from './Nav';
@@ -14,7 +14,7 @@ function App() {
        <Navigation />
         
         <div className="row">
-          <TimerWithProgress initialDuration={0}/>
+          <TimerWithProgress initialDuration={60}/>
           <TimerWithInterval/>
           <TimerEmom />
         </div>
