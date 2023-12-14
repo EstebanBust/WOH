@@ -15,7 +15,7 @@ function App() {
         
         <div className="row">
           <TimerWithProgress initialDuration={60}/>
-          <TimerWithInterval/>
+          <TimerWithInterval defaultWorkDuration= {30} defaultRestDuration={30} defaultTotalRounds={10}/>
           <TimerEmom />
         </div>
       </div>

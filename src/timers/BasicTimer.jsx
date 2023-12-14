@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import PlayButton from './PlayButton';
+import PauseButton from './PauseButton';
+import BackButton from './BackButton';
+
 
 const TimerWithProgress = ({ initialDuration }) => {
   const [duration, setDuration] = useState(initialDuration);
@@ -12,7 +15,7 @@ const TimerWithProgress = ({ initialDuration }) => {
   const [iniciarConteo, setInciarConteo] = useState(false);
   const tono1 = new Audio('/tonos/tono1.mp3');
   const tono2 = new Audio('/tonos/tono2.mp3');
-  console.log(iniciarConteo);
+
   useEffect(() => {
     setTimeLeft(duration);
   }, [duration]);
@@ -45,7 +48,7 @@ const TimerWithProgress = ({ initialDuration }) => {
         }, 1000);
     }
     if (timeLeft === 0){
-      setInciarConteo(false);
+      resetTimer();
     }
     return () => clearInterval(timer);
   }, [isRunning, timeLeft, countDown]);
@@ -62,6 +65,7 @@ const TimerWithProgress = ({ initialDuration }) => {
   };
 
   const resetTimer = () => {
+    setInciarConteo(false);
     setTimeLeft(duration);
     setIsRunning(false);
   };
@@ -70,7 +74,7 @@ const TimerWithProgress = ({ initialDuration }) => {
   const countDownProgress = (10 - countDown) / 10;
 
   return (
-    <div style={{ width: '200px' }}>
+    <div style={{ width: '250px' }}>
       <div>
         <CircularProgressbar
           value={(isWorkPhase ? progress : countDownProgress) * 100}
@@ -86,9 +90,9 @@ const TimerWithProgress = ({ initialDuration }) => {
         />
       </div>
       <div>
-        <PlayButton onClick={startTimer}>Start</PlayButton>
-        <button onClick={pauseTimer}>Pause</button>
-        <button onClick={resetTimer}>Reset</button>
+        <PlayButton style={{ width: '70px' }} onClick={startTimer}>Start</PlayButton>
+        <PauseButton style={{ width: '70px' }} onClick={pauseTimer}>Pause</PauseButton>
+        <BackButton style={{ width: '70px' }} onClick={resetTimer}>Reset</BackButton>
       </div>
       <div>
         <label>

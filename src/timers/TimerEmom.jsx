@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import 'react-circular-progressbar/dist/styles.css';
+import PlayButton from './PlayButton';
+import PauseButton from './PauseButton';
+import BackButton from './BackButton';
 
 const TimerEmom = ({ initialDuration = 60 }) => {
     const [duration, setDuration] = useState(initialDuration);
@@ -8,7 +11,11 @@ const TimerEmom = ({ initialDuration = 60 }) => {
     const [isRunning, setIsRunning] = useState(false);
     const [rondas, setRondas] = useState(10);
     const [currentRound, setCurrentRound] = useState(0);
-
+    const [countDown, setCountDown] = useState(10);
+    const [isWorkPhase, setIsWorkPhase] = useState(false);
+    const [iniciarConteo, setInciarConteo] = useState(false);
+    const tono1 = new Audio('/tonos/tono1.mp3');
+    const tono2 = new Audio('/tonos/tono2.mp3');
 
     useEffect(() => {
         setTimeLeft(duration);
@@ -17,22 +24,45 @@ const TimerEmom = ({ initialDuration = 60 }) => {
     useEffect(() => {
         let timer;
 
-        if (isRunning && timeLeft > 0) {
+        if (countDown <= 4 && countDown > 1) {
+            tono2.play();
+        }
+        if (countDown === 1) {
+            tono1.play();
+        }
+        if (timeLeft <= 4 && timeLeft > 1) {
+            tono1.play();
+        }
+        if (timeLeft === 1) {
+            tono2.play();
+        }
+        if (countDown > 0 && isRunning) {
+            const countdownTimer = setTimeout(() => {
+                setCountDown(prevCountdown => prevCountdown - 1);
+            }, 1000);
+        }
+
+        if (isRunning && timeLeft > 0 && countDown === 0) {
             timer = setInterval(() => {
                 setTimeLeft(prevTimeLeft => prevTimeLeft - 1);
             }, 1000);
-        } else if (currentRound <= rondas) {
+        } else if (currentRound <= rondas && countDown === 0) {
             setCurrentRound(currentRound + 1);
             if (isRunning) {
                 setTimeLeft(duration);
             }
 
         }
-
+        if (timeLeft === 0) {
+            setInciarConteo(false);
+        }
         return () => clearInterval(timer);
-    }, [isRunning, timeLeft]);
+    }, [isRunning, timeLeft, countDown, rondas, duration]);
 
     const startTimer = () => {
+        setInciarConteo(true);
+        setCountDown(10);
+        setIsWorkPhase(false);
         setIsRunning(true);
     }
 
@@ -41,32 +71,39 @@ const TimerEmom = ({ initialDuration = 60 }) => {
     }
 
     const resetTimer = () => {
+        setInciarConteo(false);
         setTimeLeft(duration);
         setIsRunning(false);
-        setRondas(rondas)
+        setRondas(rondas);
+        setCountDown(10);
     }
 
     const progress = (duration - timeLeft) / duration;
+    const countDownProgress = (10 - countDown) / 10;
 
     return (
-        <div style={{ width: '200px' }}>
+        <div style={{ width: '250px' }}>
             <div>
                 <CircularProgressbar
-                    value={progress * 100}
-                    text={`${timeLeft}s`}
+                    value={(countDown === 0 ? progress : countDownProgress) * 100}
+                    text={
+                        countDown === 0 ? `${timeLeft}s` :
+                            iniciarConteo ? `${countDown}s` :
+                                "▶"
+                    }
                     styles={buildStyles({
-                        pathColor: '#4CAF50',
+                        pathColor: countDown === 0 ? '#4CAF50' : '#0000FF',
                         trailColor: '#d6d6d6',
                     })}
                 />
             </div>
             <div>
-                <span>{`Round: ${currentRound - 1}/${rondas}`}</span>
+                <span>{`Round: ${currentRound}/${rondas}`}</span>
             </div>
             <div>
-                <button onClick={startTimer}>play</button>
-                <button onClick={pauseTimer}>pause</button>
-                <button onClick={resetTimer}>reset</button>
+                <PlayButton style={{ width: '70px' }} onClick={startTimer}>Start</PlayButton>
+                <PauseButton style={{ width: '70px' }} onClick={pauseTimer}>Pause</PauseButton>
+                <BackButton style={{ width: '70px' }} onClick={resetTimer}>Reset</BackButton>
             </div>
             <div>
                 <label >
