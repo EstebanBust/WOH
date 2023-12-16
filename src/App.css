@@ -1,8 +1,8 @@
 #root{
-  color: wheat;
+  color: #F6AF5E;
 }
 body{
-  background:linear-gradient(to top left, rgb(2, 2, 122), rgb(87, 83, 83),orange);
+  background:linear-gradient(to top right,#253543,#3B627F,#E82D3F);
 }
 .hide {
   display: none;
@@ -29,5 +29,5 @@ button.with-text{
   margin-top: 20px;
 }
 .footer{
-  background-color: navy;
+  background-color: #253543;
 }

@@ -84,8 +84,9 @@ const TimerWithProgress = ({ initialDuration }) => {
             "▶"
           } 
           styles={buildStyles({
-            pathColor: isWorkPhase ? '#4CAF50' : '#0000FF',
-            trailColor: '#d6d6d6',
+            pathColor: isWorkPhase ? '#26B39F' : '#3B627F',
+            trailColor: '#F6AF5E',
+            textColor: '#E82D3F',
           })}
         />
       </div>
