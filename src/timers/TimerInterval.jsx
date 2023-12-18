@@ -5,7 +5,7 @@ import PlayButton from './PlayButton';
 import PauseButton from './PauseButton';
 import BackButton from './BackButton';
 
-const TimerWithInterval = ({ defaultWorkDuration, defaultRestDuration, defaultTotalRounds }) => {
+const TimerWithInterval = ({ defaultWorkDuration, defaultRestDuration, defaultTotalRounds, pathColor1, pathColor2, pathColor3, trailColorVar, textColorVar }) => {
   const [workDuration, setWorkDuration] = useState(defaultWorkDuration || 0);
   const [restDuration, setRestDuration] = useState(defaultRestDuration || 0);
   const [totalRounds, setTotalRounds] = useState(defaultTotalRounds || 1);
@@ -108,8 +108,9 @@ const TimerWithInterval = ({ defaultWorkDuration, defaultRestDuration, defaultTo
                   : '▶'
           }
           styles={buildStyles({
-            pathColor: isWorkPhase ? '#4CAF50' : countDown === 0 ? '#FF0000' : '#0000FF',
-            trailColor: '#d6d6d6',
+            pathColor: isWorkPhase ? pathColor1 : countDown === 0 ? pathColor3 : pathColor2,
+            trailColor: trailColorVar,
+            textColor: textColorVar,
           })}
         />
 

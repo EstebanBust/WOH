@@ -5,7 +5,7 @@ import PlayButton from './PlayButton';
 import PauseButton from './PauseButton';
 import BackButton from './BackButton';
 
-const TimerForTime = ({ initialDuration }) => {
+const TimerForTime = ({ initialDuration, pathColor1, pathColor2, trailColorVar, textColorVar }) => {
     const [duration, setDuration] = useState(initialDuration || 0);
     const [timeLeft, setTimeLeft] = useState(initialDuration);
     const [isRunning, setIsRunning] = useState(false);
@@ -44,7 +44,6 @@ const TimerForTime = ({ initialDuration }) => {
                 }, 1000);
             }
             if (timeLeft === duration) {
-                tono1.play();
                 resetTimer();
             }
         } else {
@@ -90,8 +89,12 @@ const TimerForTime = ({ initialDuration }) => {
         setIsRunning(false);
         setIsWorkPhase(false);
     };
-
-    const progress = (timeLeft % 60) / 60;
+    let progress;
+    if (duration) {
+        progress = (timeLeft % duration) / duration;
+    } else {
+        progress = (timeLeft % 60) / 60;
+    }
     const countDownProgress = (10 - countDown) / 10;
 
     return (
@@ -105,8 +108,9 @@ const TimerForTime = ({ initialDuration }) => {
                                 "▶"
                     }
                     styles={buildStyles({
-                        pathColor: isWorkPhase ? '#4CAF50' : '#0000FF',
-                        trailColor: '#d6d6d6',
+                        pathColor: isWorkPhase ? pathColor1 : pathColor2,
+                        trailColor: trailColorVar,
+                        textColor: textColorVar,
                     })}
                 />
             </div>

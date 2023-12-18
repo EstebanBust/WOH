@@ -1,8 +1,8 @@
 #root{
-  color: #F6AF5E;
+  color: #F5F4EC;
 }
 body{
-  background:linear-gradient(to top right,#253543,#3B627F,#E82D3F);
+  background:linear-gradient(to top right,#303333,#303333,#7B7781,#DC6765);
 }
 .hide {
   display: none;
@@ -11,23 +11,26 @@ body{
 .show {
   display: block;
 }
-
-button{
-  background-color: transparent;
-  color: rgba(255,255,255,0.8);
-  border: 0;
-  display: inline-block;
-  width: 100px;
-}
-button.with-text{
-  width: auto;
-  background-color: rgba(255,255,255,0.8);
+.navigation{
   border-radius: 10px;
-  padding: 10px;
 }
+.navigation ul li{
+  list-style: none;
+  margin: 15px;
+  transition: transform 0.2s ease-in-out;
+}
+.navigation ul li:hover button{
+  transform: scale(1.2);
+}
+
 .controls{
   margin-top: 20px;
 }
 .footer{
   background-color: #253543;
+  border-radius: 10px;
+}
+.container{
+  margin: 10px;
+  border-radius: 10px;
 }

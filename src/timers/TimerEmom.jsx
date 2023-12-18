@@ -5,7 +5,7 @@ import PlayButton from './PlayButton';
 import PauseButton from './PauseButton';
 import BackButton from './BackButton';
 
-const TimerEmom = ({ initialDuration = 60 }) => {
+const TimerEmom = ({ initialDuration, pathColor1, pathColor2, trailColorVar, textColorVar }) => {
     const [duration, setDuration] = useState(initialDuration);
     const [timeLeft, setTimeLeft] = useState(initialDuration);
     const [isRunning, setIsRunning] = useState(false);
@@ -92,8 +92,9 @@ const TimerEmom = ({ initialDuration = 60 }) => {
                                 "▶"
                     }
                     styles={buildStyles({
-                        pathColor: countDown === 0 ? '#4CAF50' : '#0000FF',
-                        trailColor: '#d6d6d6',
+                        pathColor: countDown === 0 ? pathColor1 : pathColor2,
+                        trailColor: trailColorVar,
+                        textColor: textColorVar,
                     })}
                 />
             </div>

@@ -6,7 +6,7 @@ import PauseButton from './PauseButton';
 import BackButton from './BackButton';
 
 
-const TimerWithProgress = ({ initialDuration }) => {
+const TimerWithProgress = ({ initialDuration, pathColor1, pathColor2, trailColorVar, textColorVar}) => {
   const [duration, setDuration] = useState(initialDuration);
   const [timeLeft, setTimeLeft] = useState(initialDuration);
   const [isRunning, setIsRunning] = useState(false);
@@ -68,6 +68,8 @@ const TimerWithProgress = ({ initialDuration }) => {
     setInciarConteo(false);
     setTimeLeft(duration);
     setIsRunning(false);
+    setIsWorkPhase(false);
+    setCountDown(10);
   };
 
   const progress = (duration - timeLeft) / duration;
@@ -84,9 +86,9 @@ const TimerWithProgress = ({ initialDuration }) => {
             "▶"
           } 
           styles={buildStyles({
-            pathColor: isWorkPhase ? '#26B39F' : '#3B627F',
-            trailColor: '#F6AF5E',
-            textColor: '#E82D3F',
+            pathColor: isWorkPhase ? pathColor1 : pathColor2,
+            trailColor: trailColorVar,
+            textColor: textColorVar,
           })}
         />
       </div>
