@@ -2,7 +2,7 @@
   "name": "react-nuevo",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://EstebanBust.github.io/WOH/",
+  "homepage": "https://estebanbust.github.io/WOH/",
   "type": "module",
   "scripts": {
     "dev": "vite",
