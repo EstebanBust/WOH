@@ -8,7 +8,7 @@ import TimerNav from './TimersNav';
 import Footer from './footer';
 import TimerForTime from './timers/ForTime';
 import MapaAtleta from './GpsLeafLet';
-import OtroGps from './otroGps';
+import MapaRuta from './GpsRuta';
 
 function App() {
   const [selectedTimer, setSelectedTimer] = useState('progress'); // Default selection
@@ -31,7 +31,7 @@ function App() {
             {selectedTimer === 'time' && <TimerForTime pathColor1='#DC6765' pathColor2='#28C2D5' trailColorVar='#F5F4EC' textColorVar='#F5F4EC' />}
           </div>
           <div className="col-6">
-            <MapaAtleta></MapaAtleta>
+            <MapaRuta></MapaRuta>
           </div>
         </div>
       </div>
