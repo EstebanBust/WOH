@@ -7,7 +7,7 @@ const TimerNav = ({ handleMenuSelection }) => {
 
   return (
     <div className="navigationTimers navbar-collapse navbar">
-      <ul className="navbar-nav mr-auto d-flex flex-row flex-sm-column">
+      <ul className="navbar-nav mr-auto d-flex flex-row flex-md-column">
         <li className="nav-item">
           <button className='btn btn-danger' onClick={() => handleItemClick('progress')}>AMRAP</button>
         </li>

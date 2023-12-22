@@ -31,7 +31,7 @@ function App() {
           {selectedTimer === 'time' && <TimerForTime pathColor1='#DC6765' pathColor2='#28C2D5' trailColorVar='#F5F4EC' textColorVar='#F5F4EC' />}
         </div>
   
-        <div className="col-sm-12 col-md-7">
+        <div className="col-sm-12 col-lg-7">
           <MapaRuta></MapaRuta>
         </div>
       </div>
