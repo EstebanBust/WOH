@@ -4,6 +4,14 @@
 body{
   background:linear-gradient(to top right,#303333,#303333,#7B7781,#DC6765);
 }
+strong{
+  color: #DC6765;
+  text-shadow: 
+        -1px -1px 0 #303333,  
+         1px -1px 0 #303333,
+        -1px  1px 0 #303333,
+         1px  1px 0 #303333;
+}
 .hide {
   display: none;
 }
