@@ -93,13 +93,13 @@ const TimerWithProgress = ({ initialDuration, pathColor1, pathColor2, trailColor
         />
       </div>
       <div>
-        <PlayButton style={{ width: '70px' }} onClick={startTimer}>Start</PlayButton>
+        <PlayButton style={{ width: '70px' }} onClick={startTimer}>Iniciar</PlayButton>
         <PauseButton style={{ width: '70px' }} onClick={pauseTimer}>Pause</PauseButton>
         <BackButton style={{ width: '70px' }} onClick={resetTimer}>Reset</BackButton>
       </div>
       <div>
         <label>
-          Set Timer (seconds):{' '}
+          Duración (segundos):{' '}
           <input
             type="number"
             value={duration}

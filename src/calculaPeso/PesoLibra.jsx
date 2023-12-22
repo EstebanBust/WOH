@@ -46,13 +46,19 @@ const PesoComponenteLbs = () => {
     }, pesoBarra);
     return (
         <div className="container m-1">
-            <div className="mb-3 justify-content-center d-flex">
-                <label htmlFor="pesoBarra" className="form-label">Peso de la barra: </label>
-                <select id="pesoBarra" className="form-select w-25" value={pesoBarra} onChange={handlePesoBarraChange}>
-                    <option value={44}>20 kg</option>
-                    <option value={33}>15 kg</option>
-                    <option value={22}>10 kg</option>
-                </select>
+            <div className="row mb-3">
+                <div className="col-lg-6 mb-3">
+                    <h4>Peso total: <strong>{pesoTotal}</strong> Lbs</h4>
+                    <ConversionPesoAKgs pesoEnLibras={pesoTotal} />
+                </div>
+                <div className="col-lg-6 mb-3">
+                    <label htmlFor="pesoBarra" className="form-label">Peso de la barra: </label>
+                    <select id="pesoBarra" className="form-select w-100" value={pesoBarra} onChange={handlePesoBarraChange}>
+                        <option value={44}>20 kg</option>
+                        <option value={33}>15 kg</option>
+                        <option value={22}>10 kg</option>
+                    </select>
+                </div>
             </div>
             <div className="row mb-3">
                 <h4>Cantidad de discos:</h4>
@@ -72,10 +78,6 @@ const PesoComponenteLbs = () => {
                         </div>
                     </div>
                 ))}
-            </div>
-            <div className="mb-3">
-                <h3>Peso total: {pesoTotal} Lbs</h3>
-                <ConversionPesoAKgs pesoEnLibras={pesoTotal}/>
             </div>
         </div>
     );

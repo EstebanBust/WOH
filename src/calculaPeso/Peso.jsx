@@ -48,14 +48,21 @@ const PesoComponenteKgs = () => {
 
     return (
         <div className='container m-1'>
-            <div className='mb-3 justify-content-center d-flex'>
-                <label htmlFor="pesoBarra" className="form-label">Peso de la barra: </label>
-                <select className="form-select w-25" id="pesoBarra" value={pesoBarra} onChange={handlePesoBarraChange}>
-                    <option value={20}>20 kg</option>
-                    <option value={15}>15 kg</option>
-                    <option value={10}>10 kg</option>
-                </select>
+            <div className="row">
+                <div className="col-lg-6 mb-3"> 
+                    <h4>Peso total: <strong>{pesoTotal}</strong> kgs</h4>
+                    <ConversionPesoALbs pesoEnKilogramos={pesoTotal} />
+                </div>
+                <div className="col-lg-6 mb-3">
+                    <label htmlFor="pesoBarra" className="form-label">Peso de la barra: </label>
+                    <select className="form-select w-100" id="pesoBarra" value={pesoBarra} onChange={handlePesoBarraChange}>
+                        <option value={20}>20 kg</option>
+                        <option value={15}>15 kg</option>
+                        <option value={10}>10 kg</option>
+                    </select>
+                </div>
             </div>
+
             <div className="row mb-3">
                 <h4>Cantidad de discos:</h4>
                 {Object.keys(cantidadDiscos).map((tipoDisco) => (
@@ -63,22 +70,19 @@ const PesoComponenteKgs = () => {
                         <label className="col">{pesosDiscos[tipoDisco]} kg:</label>
                         <div className="col-sm-10">
                             <input
-                            type="number"
-                            className="form-control"
-                            value={cantidadDiscos[tipoDisco]}
-                            onChange={(e) => handleCantidadDiscosChange(e, tipoDisco)}
-                            min={0}
-                            inputMode="numeric"
-                            pattern="[0-20]*"
-                        /></div>
+                                type="number"
+                                className="form-control"
+                                value={cantidadDiscos[tipoDisco]}
+                                onChange={(e) => handleCantidadDiscosChange(e, tipoDisco)}
+                                min={0}
+                                inputMode="numeric"
+                                pattern="[0-20]*"
+                            /></div>
 
                     </div>
                 ))}
             </div>
-            <div className="mb-3">
-                <h3>Peso total: {pesoTotal} kgs</h3>
-                <ConversionPesoALbs pesoEnKilogramos={pesoTotal}/>
-            </div>
+
         </div>
     );
 };

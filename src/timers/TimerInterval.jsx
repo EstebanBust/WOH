@@ -116,7 +116,7 @@ const TimerWithInterval = ({ defaultWorkDuration, defaultRestDuration, defaultTo
 
       </div>
       <div>
-        <span>{`Round: ${currentRound - 1}/${totalRounds}`}</span>
+        <span>{`Ronda: ${currentRound - 1}/${totalRounds}`}</span>
       </div>
       <div>
         <PlayButton style={{ width: '70px' }} onClick={startTimer}>Start</PlayButton>
@@ -125,7 +125,7 @@ const TimerWithInterval = ({ defaultWorkDuration, defaultRestDuration, defaultTo
       </div>
       <div>
         <label>
-          Work Duration (seconds):{' '}
+          Duración Trabajo (segundos):{' '}
           <input
             type="number"
             value={workDuration}
@@ -135,7 +135,7 @@ const TimerWithInterval = ({ defaultWorkDuration, defaultRestDuration, defaultTo
       </div>
       <div>
         <label>
-          Rest Duration (seconds):{' '}
+          Duración Descanso (segundos):{' '}
           <input
             type="number"
             value={restDuration}
@@ -145,7 +145,7 @@ const TimerWithInterval = ({ defaultWorkDuration, defaultRestDuration, defaultTo
       </div>
       <div>
         <label>
-          Total Rounds:{' '}
+          Rondas Totales:{' '}
           <input
             type="number"
             value={totalRounds}

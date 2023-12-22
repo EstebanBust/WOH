@@ -112,7 +112,7 @@ const TimerEmom = ({ initialDuration, pathColor1, pathColor2, trailColorVar, tex
                     <input type="number" value={rondas} onChange={e => setRondas(Math.max(0, parseInt(e.target.value)))} />
                 </label>
                 <label>
-                    Intervalo (seconds):{' '}
+                    Intervalo (segundos):{' '}
                     <input type="number" value={duration} onChange={e => setDuration(Math.max(0, parseInt(e.target.value)))} />
                 </label>
             </div>

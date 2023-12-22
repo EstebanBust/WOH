@@ -121,7 +121,7 @@ const TimerForTime = ({ initialDuration, pathColor1, pathColor2, trailColorVar, 
             </div>
             <div>
                 <label>
-                    Set Timer (seconds):{' '}
+                    Duración (segundos):{' '}
                     <input
                         type="number"
                         value={duration}

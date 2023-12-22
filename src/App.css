@@ -11,15 +11,15 @@ body{
 .show {
   display: block;
 }
-.navigation{
+.navigationTimers{
   border-radius: 10px;
 }
-.navigation ul li{
+.navigationTimers ul li{
   list-style: none;
   margin: 15px;
   transition: transform 0.2s ease-in-out;
 }
-.navigation ul li:hover button{
+.navigationTimers ul li:hover button{
   transform: scale(1.2);
 }
 

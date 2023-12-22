@@ -8,7 +8,7 @@ const MapaAtleta = () => {
   const [position, setPosition] = useState(null);
   const [route, setRoute] = useState([]);
   const [distance, setDistance] = useState(0);
-  const [showMap, setShowMap] = useState(true);
+  const [showMap, setShowMap] = useState(false);
   const [isCounting, setIsCounting] = useState(true); // Estado para controlar el conteo
   const featureGroupRef = React.useRef();
 
