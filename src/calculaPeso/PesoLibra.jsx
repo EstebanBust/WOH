@@ -63,9 +63,9 @@ const PesoComponenteLbs = () => {
             <div className="row mb-3">
                 <h4>Cantidad de discos:</h4>
                 {Object.keys(cantidadDiscos).map((tipoDisco) => (
-                    <div className={`col w-25 mb-3 C${pesosDiscos[tipoDisco]}`} key={tipoDisco}>
-                        <label className="col">{pesosDiscos[tipoDisco]} Lbs:</label>
-                        <div className="col-sm-10">
+                    <div className={`col-lg-3 col-md-4 col-sm-6 w-25 mb-3 C${pesosDiscos[tipoDisco]}`} key={tipoDisco}>
+                        <label>{pesosDiscos[tipoDisco]} Lbs:</label>
+                        <div>
                             <input
                                 type="number"
                                 className="form-control"

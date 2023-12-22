@@ -49,7 +49,7 @@ const PesoComponenteKgs = () => {
     return (
         <div className='container m-1'>
             <div className="row">
-                <div className="col-lg-6 mb-3"> 
+                <div className="col-lg-6 mb-3">
                     <h4>Peso total: <strong>{pesoTotal}</strong> kgs</h4>
                     <ConversionPesoALbs pesoEnKilogramos={pesoTotal} />
                 </div>
@@ -66,9 +66,9 @@ const PesoComponenteKgs = () => {
             <div className="row mb-3">
                 <h4>Cantidad de discos:</h4>
                 {Object.keys(cantidadDiscos).map((tipoDisco) => (
-                    <div className={`col w-25 mb-3 ${replaceDotsWithUnderscores(`K${pesosDiscos[tipoDisco]}`)}`} key={tipoDisco}>
+                    <div className={`col-lg-3 col-md-4 col-sm-6 w-25 mb-3 ${replaceDotsWithUnderscores(`K${pesosDiscos[tipoDisco]}`)}`} key={tipoDisco}>
                         <label className="col">{pesosDiscos[tipoDisco]} kg:</label>
-                        <div className="col-sm-10">
+                        <div>
                             <input
                                 type="number"
                                 className="form-control"
@@ -77,11 +77,12 @@ const PesoComponenteKgs = () => {
                                 min={0}
                                 inputMode="numeric"
                                 pattern="[0-20]*"
-                            /></div>
-
+                            />
+                        </div>
                     </div>
                 ))}
             </div>
+
 
         </div>
     );

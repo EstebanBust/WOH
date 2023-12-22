@@ -128,7 +128,7 @@ const MapaAtleta = () => {
         {showMap ? 'Ocultar Mapa' : 'Mostrar Mapa'}
       </button>
       <button onClick={toggleCounting}>
-        {isCounting ? 'Detener Conteo' : 'Reiniciar Conteo'}
+        {isCounting ? 'Detener GPS' : 'Reiniciar GPS'}
       </button>
     </div>
   );
