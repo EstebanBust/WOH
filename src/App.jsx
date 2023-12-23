@@ -12,6 +12,11 @@ import MapaRuta from './GpsRuta';
 
 function App() {
   const [selectedTimer, setSelectedTimer] = useState('progress');
+  // colores timers
+  const claro = '#F5F4EC';
+  const rojo = '#DC6765';
+  const azul = '#28C2D5';
+  const gris = '#7B7781';
 
   const handleMenuSelection = (timerType) => {
     setSelectedTimer(timerType);
@@ -26,10 +31,10 @@ function App() {
           </div>
 
           <div className="col-sm-12 col-md-3 d-flex align-items-center justify-content-center">
-            {selectedTimer === 'progress' && <TimerWithProgress initialDuration={60} pathColor1='#DC6765' pathColor2='#28C2D5' trailColorVar='#F5F4EC' textColorVar='#F5F4EC' />}
-            {selectedTimer === 'interval' && <TimerWithInterval defaultWorkDuration={30} defaultRestDuration={30} defaultTotalRounds={10} pathColor1='#DC6765' pathColor2='#28C2D5' pathColor3='#7B7781' trailColorVar='#F5F4EC' textColorVar='#F5F4EC' />}
-            {selectedTimer === 'emom' && <TimerEmom initialDuration={60} pathColor1='#DC6765' pathColor2='#28C2D5' trailColorVar='#F5F4EC' textColorVar='#F5F4EC' />}
-            {selectedTimer === 'time' && <TimerForTime pathColor1='#DC6765' pathColor2='#28C2D5' trailColorVar='#F5F4EC' textColorVar='#F5F4EC' />}
+            {selectedTimer === 'progress' && <TimerWithProgress initialDuration={59} pathColor1={rojo} pathColor2={azul} trailColorVar={claro} textColorVar={claro} />}
+            {selectedTimer === 'interval' && <TimerWithInterval defaultWorkDuration={30} defaultRestDuration={30} defaultTotalRounds={10} pathColor1={rojo} pathColor2={azul} pathColor3={gris} trailColorVar={claro} textColorVar={claro} />}
+            {selectedTimer === 'emom' && <TimerEmom initialDuration={60} pathColor1={rojo} pathColor2={azul} trailColorVar={claro} textColorVar={claro} />}
+            {selectedTimer === 'time' && <TimerForTime pathColor1={rojo} pathColor2={azul} trailColorVar={claro} textColorVar={claro} />}
           </div>
 
           <div className="col-sm-12 col-lg-7 d-flex align-items-center justify-content-center">
