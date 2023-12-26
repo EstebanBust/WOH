@@ -10,16 +10,15 @@ const TimerWithInterval = ({ defaultWorkDuration, defaultRestDuration, defaultTo
   const [durationRestSeconds, setDurationRestSeconds] = useState(defaultRestDuration);
   const [durationWorkMinutes, setDurationWorkMinutes] = useState(0);
   const [durationWorkSeconds, setDurationWorkSeconds] = useState(defaultWorkDuration);
-  const [workDuration, setWorkDuration] = useState(defaultWorkDuration || 0);
-  const [restDuration, setRestDuration] = useState(defaultRestDuration || 0);
   const [totalRounds, setTotalRounds] = useState(defaultTotalRounds || 1);
   const [isWorkPhase, setIsWorkPhase] = useState(false);
   const [currentRound, setCurrentRound] = useState(1);
-  const [timeLeft, setTimeLeft] = useState(workDuration);
+  const [timeLeft, setTimeLeft] = useState((durationWorkMinutes * 60 + durationWorkSeconds));
   const [isRunning, setIsRunning] = useState(false);
   const [countDown, setCountDown] = useState(10);
   const [iniciarConteo, setInciarConteo] = useState(false);
   const [showInputs, setShowInputs] = useState(true);
+  const [switchPhase, setSwitchPhase] = useState(true);
   const tono1 = new Audio('/tonos/tono1.mp3');
   const tono2 = new Audio('/tonos/tono2.mp3');
 
@@ -29,29 +28,33 @@ const TimerWithInterval = ({ defaultWorkDuration, defaultRestDuration, defaultTo
 
   useEffect(() => {
     let timer;
-    if (countDown <= 4 && countDown > 1) {
+    if (isRunning && countDown <= 4 && countDown > 1) {
       tono2.play();
     }
-    if (countDown === 1) {
+    if (isRunning && countDown === 1) {
       tono1.play();
     }
-    if (timeLeft <= 4 && timeLeft > 1) {
+    if (isRunning && timeLeft <= 4 && timeLeft > 1) {
       tono1.play();
     }
-    if (timeLeft === 1) {
+    if (isRunning && timeLeft === 1 ) {
       tono2.play();
     }
 
-    if (countDown > 0 && isRunning) {
+    if (isRunning && countDown > 0) {
       const countdownTimer = setTimeout(() => {
         setCountDown(prevCountdown => prevCountdown - 1);
       }, 1000);
+    }
+    if (isRunning && countDown === 0 && switchPhase) {
+      setIsWorkPhase(true);
+      setSwitchPhase(false);
     }
     if (isRunning && timeLeft > 0 && countDown === 0) {
       timer = setInterval(() => {
         setTimeLeft(prevTimeLeft => prevTimeLeft - 1);
       }, 1000);
-    } else if (timeLeft === 0 && countDown === 0) {
+    } else if (isRunning && timeLeft === 0 && countDown === 0) {
       if (isWorkPhase) {
         setCurrentRound(prevRound => prevRound + 1);
       }
@@ -60,9 +63,9 @@ const TimerWithInterval = ({ defaultWorkDuration, defaultRestDuration, defaultTo
       const isLastRound = nextRound >= totalRounds;
 
       if (!isLastRound) {
-        setIsWorkPhase(!isWorkPhase);
+        setIsWorkPhase(prevIsWorkPhase => !prevIsWorkPhase);
         setCurrentRound(nextRound);
-        setTimeLeft(isWorkPhase ? restDuration : workDuration);
+        setTimeLeft(isWorkPhase ? (durationWorkMinutes * 60 + durationWorkSeconds) : (durationRestMinutes * 60 + durationRestSeconds));
       } else {
         // Si es la última ronda, detener el temporizador
         setIsRunning(false);
@@ -72,7 +75,7 @@ const TimerWithInterval = ({ defaultWorkDuration, defaultRestDuration, defaultTo
       setInciarConteo(false);
     }
     return () => clearInterval(timer);
-  }, [isRunning, timeLeft, isWorkPhase, workDuration, restDuration, countDown]);
+  }, [isRunning, timeLeft, isWorkPhase, countDown]);
 
   const startTimer = () => {
     setInciarConteo(true);
@@ -80,6 +83,7 @@ const TimerWithInterval = ({ defaultWorkDuration, defaultRestDuration, defaultTo
     setIsWorkPhase(false);
     setIsRunning(true);
     setShowInputs(false);
+    setSwitchPhase(true);
   };
 
   const pauseTimer = () => {
@@ -96,20 +100,24 @@ const TimerWithInterval = ({ defaultWorkDuration, defaultRestDuration, defaultTo
     setShowInputs(true);
   };
 
-  const totalTimeForPhase = isWorkPhase ? workDuration : restDuration;
+  const totalTimeForPhase = isWorkPhase ? (durationWorkMinutes * 60 + durationWorkSeconds) : (durationRestMinutes * 60 + durationRestSeconds);
   const progress = ((totalTimeForPhase - timeLeft) / totalTimeForPhase);
   const countDownProgress = (10 - countDown) / 10;
 
   return (
-    <div style={{ width: '250px' }}>
+    <div style={{ width: '500px' }}>
       <div>
+        <h3 className='col-12 text-center fase' htmlFor=""><strong>
+          {isWorkPhase && countDown === 0 ? 'Trabajo' : !isWorkPhase && countDown === 0 ? 'Descanso' : ''}</strong>
+        </h3>
+
         <CircularProgressbar
           value={(countDown === 0 ? progress : countDownProgress) * 100}
           text={
             isWorkPhase
-              ? `${'Work'}  ${Math.floor(timeLeft / 60)}m ${timeLeft % 60}s`
+              ? `${Math.floor(timeLeft / 60)}m ${timeLeft % 60}s`
               : countDown === 0
-                ? `${'Rest'}  ${Math.floor(timeLeft / 60)}m ${timeLeft % 60}s`
+                ? `${Math.floor(timeLeft / 60)}m ${timeLeft % 60}s`
                 : iniciarConteo
                   ? `${countDown}s`
                   : '▶'
@@ -154,12 +162,12 @@ const TimerWithInterval = ({ defaultWorkDuration, defaultRestDuration, defaultTo
                   value={durationWorkSeconds}
                   onChange={e => {
                     const value = Math.min(59, Math.max(0, parseInt(e.target.value)));
-                    setDurationSeconds(value);
+                    setDurationWorkSeconds(value);
                   }}
                 />
               </label>
             </div>
-            <label className="col-12" htmlFor="">Descanso</label>
+            <label className="col-12 text-center" htmlFor="">Descanso</label>
             <div className='col-6'>
               <label>
                 Minutos:{' '}
@@ -180,7 +188,7 @@ const TimerWithInterval = ({ defaultWorkDuration, defaultRestDuration, defaultTo
                   value={durationRestSeconds}
                   onChange={e => {
                     const value = Math.min(59, Math.max(0, parseInt(e.target.value)));
-                    setDurationSeconds(value);
+                    setDurationRestSeconds(value);
                   }}
                 />
               </label>

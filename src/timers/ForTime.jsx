@@ -6,7 +6,8 @@ import PauseButton from './PauseButton';
 import BackButton from './BackButton';
 
 const TimerForTime = ({ initialDuration, pathColor1, pathColor2, trailColorVar, textColorVar }) => {
-    const [duration, setDuration] = useState(initialDuration || 0);
+    const [durationMinutes, setDurationMinutes] = useState(0);
+    const [durationSeconds, setDurationSeconds] = useState(initialDuration);
     const [timeLeft, setTimeLeft] = useState(initialDuration);
     const [isRunning, setIsRunning] = useState(false);
     const [isWorkPhase, setIsWorkPhase] = useState(false);
@@ -16,12 +17,12 @@ const TimerForTime = ({ initialDuration, pathColor1, pathColor2, trailColorVar, 
     const tono2 = new Audio('/tonos/tono2.mp3');
 
     useEffect(() => {
-        setTimeLeft(duration);
-    }, [duration]);
+        setTimeLeft(durationMinutes * 60 + durationSeconds);
+      }, [durationMinutes, durationSeconds]);
 
     useEffect(() => {
         let timer;
-        if (duration) {
+        if (durationMinutes * 60 + durationSeconds) {
             // logica del cronometro con duracion maxima
             console.log("condu");
             if (countDown <= 4 && countDown > 1) {
@@ -43,7 +44,7 @@ const TimerForTime = ({ initialDuration, pathColor1, pathColor2, trailColorVar, 
                     setTimeLeft(prevTimeLeft => prevTimeLeft + 1);
                 }, 1000);
             }
-            if (timeLeft === duration) {
+            if (timeLeft === (durationMinutes * 60 + durationSeconds)) {
                 resetTimer();
             }
         } else {
@@ -69,7 +70,7 @@ const TimerForTime = ({ initialDuration, pathColor1, pathColor2, trailColorVar, 
             }
         }
         return () => clearInterval(timer);
-    }, [duration, isRunning, timeLeft, countDown]);
+    }, [isRunning, timeLeft, countDown]);
 
     const startTimer = () => {
         setTimeLeft(0);
@@ -85,20 +86,21 @@ const TimerForTime = ({ initialDuration, pathColor1, pathColor2, trailColorVar, 
 
     const resetTimer = () => {
         setInciarConteo(false);
-        setTimeLeft(duration);
+        setTimeLeft(durationMinutes * 60 + durationSeconds);
         setIsRunning(false);
         setIsWorkPhase(false);
     };
     let progress;
-    if (duration) {
-        progress = (timeLeft % duration) / duration;
+    if ((durationMinutes * 60 + durationSeconds)) {
+        progress = ((durationMinutes * 60 + durationSeconds) - timeLeft) / (durationMinutes * 60 + durationSeconds);
     } else {
         progress = (timeLeft % 60) / 60;
     }
+
     const countDownProgress = (10 - countDown) / 10;
 
     return (
-        <div style={{ width: '250px' }}>
+        <div style={{ width: '500px' }}>
             <div>
                 <CircularProgressbar
                     value={(isWorkPhase ? progress : countDownProgress) * 100}
@@ -119,16 +121,29 @@ const TimerForTime = ({ initialDuration, pathColor1, pathColor2, trailColorVar, 
                 <PauseButton style={{ width: '70px' }} onClick={pauseTimer}>Pause</PauseButton>
                 <BackButton style={{ width: '70px' }} onClick={resetTimer}>Reset</BackButton>
             </div>
-            <div>
-                <label>
-                    Duración (segundos):{' '}
-                    <input
-                        type="number"
-                        value={duration}
-                        onChange={e => setDuration(Math.max(0, parseInt(e.target.value)))}
-                    />
-                </label>
-            </div>
+            {showInputs && (
+                <div className='row'>
+                    <label className='col-6'>
+                        Minutos:{' '}
+                        <input className='form-input' style={{ width: '100%' }}
+                            type="number"
+                            value={durationMinutes}
+                            onChange={e => setDurationMinutes(Math.max(0, parseInt(e.target.value)))}
+                        />
+                    </label>
+                    <label className='col-6'>
+                        Segundos:{' '}
+                        <input className='form-input' style={{ width: '100%' }}
+                            type="number"
+                            value={durationSeconds}
+                            onChange={e => {
+                                const value = Math.min(59, Math.max(0, parseInt(e.target.value)));
+                                setDurationSeconds(value);
+                            }}
+                        />
+                    </label>
+                </div>
+            )}
         </div>
     );
 }
