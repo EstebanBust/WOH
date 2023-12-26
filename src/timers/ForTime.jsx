@@ -22,21 +22,23 @@ const TimerForTime = ({ initialDuration, pathColor1, pathColor2, trailColorVar, 
 
     useEffect(() => {
         let timer;
-        if (durationMinutes * 60 + durationSeconds) {
-            // logica del cronometro con duracion maxima
-            console.log("condu");
+        if ((durationMinutes * 60 + durationSeconds) && isRunning) {
             if (countDown <= 4 && countDown > 1) {
                 tono2.play();
-            }
-            if (countDown === 1) {
+            } else if (countDown === 1) {
                 tono1.play();
             }
 
-            if (countDown > 0 && isRunning) {
-                const countdownTimer = setTimeout(() => {
-                    setCountDown(prevCountdown => prevCountdown - 1);
-                }, 1000);
-            }
+            const countdownTimer = setTimeout(() => {
+                setCountDown(prevCountdown => prevCountdown - 1);
+            }, 1000);
+
+
+        }
+
+
+        if (durationMinutes * 60 + durationSeconds) {
+            // logica del cronometro con duracion maxima
 
             if (isRunning && countDown === 0) {
                 setIsWorkPhase(true);
@@ -49,7 +51,6 @@ const TimerForTime = ({ initialDuration, pathColor1, pathColor2, trailColorVar, 
             }
         } else {
             // cronometro sin duracion
-            console.log("sindu");
             if (countDown <= 4 && countDown > 1) {
                 tono2.play();
             }
@@ -57,11 +58,6 @@ const TimerForTime = ({ initialDuration, pathColor1, pathColor2, trailColorVar, 
                 tono1.play();
             }
 
-            if (countDown > 0 && isRunning) {
-                const countdownTimer = setTimeout(() => {
-                    setCountDown(prevCountdown => prevCountdown - 1);
-                }, 1000);
-            }
             if (isRunning && countDown === 0) {
                 setIsWorkPhase(true);
                 timer = setInterval(() => {
