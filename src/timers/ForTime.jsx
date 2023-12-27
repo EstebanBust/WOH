@@ -13,6 +13,7 @@ const TimerForTime = ({ initialDuration, pathColor1, pathColor2, trailColorVar, 
     const [isWorkPhase, setIsWorkPhase] = useState(false);
     const [iniciarConteo, setInciarConteo] = useState(false);
     const [countDown, setCountDown] = useState(10);
+    const [showInputs, setShowInputs] = useState(true);
     const tono1 = new Audio('/tonos/tono1.mp3');
     const tono2 = new Audio('/tonos/tono2.mp3');
 
@@ -22,7 +23,7 @@ const TimerForTime = ({ initialDuration, pathColor1, pathColor2, trailColorVar, 
 
     useEffect(() => {
         let timer;
-        if ((durationMinutes * 60 + durationSeconds) && isRunning) {
+        if (isRunning) {
             if (countDown <= 4 && countDown > 1) {
                 tono2.play();
             } else if (countDown === 1) {
@@ -32,8 +33,6 @@ const TimerForTime = ({ initialDuration, pathColor1, pathColor2, trailColorVar, 
             const countdownTimer = setTimeout(() => {
                 setCountDown(prevCountdown => prevCountdown - 1);
             }, 1000);
-
-
         }
 
 
@@ -46,18 +45,11 @@ const TimerForTime = ({ initialDuration, pathColor1, pathColor2, trailColorVar, 
                     setTimeLeft(prevTimeLeft => prevTimeLeft + 1);
                 }, 1000);
             }
-            if (timeLeft === (durationMinutes * 60 + durationSeconds)) {
+            if (timeLeft >= (durationMinutes * 60 + durationSeconds)) {
                 resetTimer();
             }
         } else {
             // cronometro sin duracion
-            if (countDown <= 4 && countDown > 1) {
-                tono2.play();
-            }
-            if (countDown === 1) {
-                tono1.play();
-            }
-
             if (isRunning && countDown === 0) {
                 setIsWorkPhase(true);
                 timer = setInterval(() => {
@@ -66,14 +58,15 @@ const TimerForTime = ({ initialDuration, pathColor1, pathColor2, trailColorVar, 
             }
         }
         return () => clearInterval(timer);
-    }, [isRunning, timeLeft, countDown]);
-
+    }, [isRunning, timeLeft,countDown,durationMinutes,durationSeconds]);
+ 
     const startTimer = () => {
         setTimeLeft(0);
         setInciarConteo(true);
         setCountDown(10);
         setIsWorkPhase(false);
         setIsRunning(true);
+        setShowInputs(false);
     };
 
     const pauseTimer = () => {
@@ -85,14 +78,17 @@ const TimerForTime = ({ initialDuration, pathColor1, pathColor2, trailColorVar, 
         setTimeLeft(durationMinutes * 60 + durationSeconds);
         setIsRunning(false);
         setIsWorkPhase(false);
+        setShowInputs(true);
     };
     let progress;
-    if ((durationMinutes * 60 + durationSeconds)) {
-        progress = ((durationMinutes * 60 + durationSeconds) - timeLeft) / (durationMinutes * 60 + durationSeconds);
+    if (durationMinutes || durationSeconds) {
+        const totalTimeInSeconds = durationMinutes * 60 + durationSeconds;
+        progress = (totalTimeInSeconds - timeLeft) / totalTimeInSeconds;
     } else {
+        // Si no se ha establecido una duración total, mostrar el progreso basado en los segundos transcurridos
         progress = (timeLeft % 60) / 60;
     }
-
+    
     const countDownProgress = (10 - countDown) / 10;
 
     return (
