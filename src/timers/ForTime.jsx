@@ -8,6 +8,7 @@ import BackButton from './BackButton';
 const TimerForTime = ({ initialDuration, pathColor1, pathColor2, trailColorVar, textColorVar }) => {
     const [durationMinutes, setDurationMinutes] = useState(0);
     const [durationSeconds, setDurationSeconds] = useState(initialDuration);
+    const [duration, setDuration] = useState(durationMinutes * 60 + durationSeconds);
     const [timeLeft, setTimeLeft] = useState(initialDuration);
     const [isRunning, setIsRunning] = useState(false);
     const [isWorkPhase, setIsWorkPhase] = useState(false);
@@ -16,10 +17,6 @@ const TimerForTime = ({ initialDuration, pathColor1, pathColor2, trailColorVar, 
     const [showInputs, setShowInputs] = useState(true);
     const tono1 = new Audio('/tonos/tono1.mp3');
     const tono2 = new Audio('/tonos/tono2.mp3');
-
-    useEffect(() => {
-        setTimeLeft(durationMinutes * 60 + durationSeconds);
-      }, [durationMinutes, durationSeconds]);
 
     useEffect(() => {
         let timer;
@@ -36,7 +33,7 @@ const TimerForTime = ({ initialDuration, pathColor1, pathColor2, trailColorVar, 
         }
 
 
-        if (durationMinutes * 60 + durationSeconds) {
+        if (duration) {
             // logica del cronometro con duracion maxima
 
             if (isRunning && countDown === 0) {
@@ -44,8 +41,9 @@ const TimerForTime = ({ initialDuration, pathColor1, pathColor2, trailColorVar, 
                 timer = setInterval(() => {
                     setTimeLeft(prevTimeLeft => prevTimeLeft + 1);
                 }, 1000);
+
             }
-            if (timeLeft >= (durationMinutes * 60 + durationSeconds)) {
+            if (timeLeft <= duration) {
                 resetTimer();
             }
         } else {
@@ -58,10 +56,11 @@ const TimerForTime = ({ initialDuration, pathColor1, pathColor2, trailColorVar, 
             }
         }
         return () => clearInterval(timer);
-    }, [isRunning, timeLeft,countDown,durationMinutes,durationSeconds]);
- 
+    }, [isRunning, timeLeft, countDown, duration, isWorkPhase]);
+
     const startTimer = () => {
         setTimeLeft(0);
+        setDuration(duration);
         setInciarConteo(true);
         setCountDown(10);
         setIsWorkPhase(false);
@@ -75,20 +74,21 @@ const TimerForTime = ({ initialDuration, pathColor1, pathColor2, trailColorVar, 
 
     const resetTimer = () => {
         setInciarConteo(false);
-        setTimeLeft(durationMinutes * 60 + durationSeconds);
         setIsRunning(false);
         setIsWorkPhase(false);
         setShowInputs(true);
-    };
-    let progress;
-    if (durationMinutes || durationSeconds) {
-        const totalTimeInSeconds = durationMinutes * 60 + durationSeconds;
-        progress = (totalTimeInSeconds - timeLeft) / totalTimeInSeconds;
+    };let progress;
+    if (duration) {
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+        progress = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
     } else {
-        // Si no se ha establecido una duración total, mostrar el progreso basado en los segundos transcurridos
-        progress = (timeLeft % 60) / 60;
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+        progress = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
     }
     
+
     const countDownProgress = (10 - countDown) / 10;
 
     return (
