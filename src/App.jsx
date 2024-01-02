@@ -33,12 +33,13 @@ function App() {
           <div className="col-sm-12 col-md-3 d-flex align-items-center justify-content-center">
             {selectedTimer === 'progress' && <TimerWithProgress initialDuration={59} pathColor1={rojo} pathColor2={azul} trailColorVar={claro} textColorVar={claro} />}
             {selectedTimer === 'interval' && <TimerWithInterval defaultWorkDuration={30} defaultRestDuration={30} defaultTotalRounds={10} pathColor1={rojo} pathColor2={azul} pathColor3={gris} trailColorVar={claro} textColorVar={claro} />}
-            {selectedTimer === 'emom' && <TimerEmom initialDuration={60} pathColor1={rojo} pathColor2={azul} trailColorVar={claro} textColorVar={claro} />}
+            {selectedTimer === 'emom' && <TimerEmom initialDuration={59} pathColor1={rojo} pathColor2={azul} trailColorVar={claro} textColorVar={claro} />}
             {selectedTimer === 'time' && <TimerForTime pathColor1={rojo} pathColor2={azul} trailColorVar={claro} textColorVar={claro} />}
           </div>
 
-          <div className="col-sm-12 col-lg-7 d-flex align-items-center justify-content-center">
-            <MapaRuta></MapaRuta>
+          <div className="col-sm-12 col-lg-7 align-items-center justify-content-center">
+            <div className="row"><label>Gps funciona con gps de celular, si hay mala señal no funcionara correctamente</label></div>
+            <div className="row"><MapaRuta></MapaRuta></div>
           </div>
         </div>
       </div>
